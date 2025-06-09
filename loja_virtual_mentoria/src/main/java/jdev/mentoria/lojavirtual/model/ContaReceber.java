@@ -1,6 +1,8 @@
 package jdev.mentoria.lojavirtual.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
@@ -14,48 +16,51 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
-import jdev.mentoria.lojavirtual.enums.TipoEndereco;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jdev.mentoria.lojavirtual.enums.StatusConta;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
-@SequenceGenerator(name = "seq_endereco", sequenceName = "seq_endereco", initialValue = 1, allocationSize = 1)
 @Data
-public class Endereco implements Serializable {
+@Entity
+@Table(name = "conta_receber")
+@SequenceGenerator(name = "seq_conta_receber", sequenceName = "seq_conta_receber", initialValue = 1, allocationSize = 1)
+public class ContaReceber implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@EqualsAndHashCode.Include
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_endereco")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta_receber")
 	private Long id;
 	
-	@Column(nullable = false)
-	private String logradouro;
+	private String descricao;
 	
-	@Column(nullable = false)
-	private String numero;
-
-	@Column(nullable = false)
-	private String bairro;
+	@Enumerated(EnumType.STRING)
+	private StatusConta status;
 	
-	@Column(nullable = false)
-	private String cep;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_vencimento")
+	private LocalDate dataVencimento;
 	
-	private String complemento;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "data_pagamento")
+	private LocalDate dataPagamento;
 	
-	@Column(nullable = false)
-	private String uf;
-
-	@Column(nullable = false)
-	private String cidade;
+	@Column(name = "valor_total")
+	private BigDecimal valorTotal;
+	
+	@Column(name = "valor_desconto")
+	private BigDecimal valorDesconto;
+	
 	
 	@ManyToOne(targetEntity = Pessoa.class)
 	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
 	private Pessoa pessoa;
 	
-	@Enumerated(EnumType.STRING)
-	private TipoEndereco tipoEndereco;
+	
 
 }
