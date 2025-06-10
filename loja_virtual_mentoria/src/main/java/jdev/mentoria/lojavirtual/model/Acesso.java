@@ -24,12 +24,11 @@ public class Acesso implements GrantedAuthority {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_acesso")
 	private Long id;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 80)
 	private String descricao;
 
 	@Override
 	public String getAuthority() {
-		// TODO Auto-generated method stub
 		return this.descricao;
 	}
 

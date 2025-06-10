@@ -17,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Temporal;
@@ -38,12 +39,14 @@ public class Usuario implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usuario")
 	private Long id;
 	
+	@Column(length = 80, nullable = false)
 	private String login;
 	
+	@Column(length = 50, nullable = false)
 	private String senha;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "data_atual_senha")
+	@Column(name = "data_atual_senha", nullable = false)
 	private LocalDate dataAtualSenha;
 	
 	@OneToMany(fetch = FetchType.LAZY)
@@ -53,6 +56,10 @@ public class Usuario implements UserDetails {
 	@JoinColumn(name = "acesso_id", unique = false, referencedColumnName = "id", table = "acesso", foreignKey = @ForeignKey(
 	name = "acesso_fk", value = ConstraintMode.CONSTRAINT)))
 	private List<Acesso> acesso;
+	
+	@ManyToOne
+	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
+	private Pessoa pessoa;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

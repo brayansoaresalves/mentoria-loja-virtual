@@ -14,22 +14,22 @@ public class PessoaJuridica extends Pessoa {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 20)
 	private String cnpj;
 	
-	@Column(name = "inscricao_estadual", nullable = false)
+	@Column(name = "inscricao_estadual", nullable = false, length = 20)
 	private String inscricaoEstadual;
 	
-	@Column(name = "inscricao_municipal")
+	@Column(name = "inscricao_municipal", length = 20)
 	private String inscricaoMunicipal;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 60)
 	private String fantasia;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 60)
 	private String razao;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 60)
 	private String categoria;
 
 }

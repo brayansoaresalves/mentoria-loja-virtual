@@ -2,6 +2,7 @@ package jdev.mentoria.lojavirtual.model;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
@@ -27,12 +28,16 @@ public class StatusRastreio implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_status_rastreio")
 	private Long id;
 	
+	@Column(length = 80, nullable = false)
 	private String centroDistribuicao;
 	
+	@Column(length = 80, nullable = false)
 	private String cidade;
 	
+	@Column(length = 2, nullable = false)
 	private String estado;
 	
+	@Column(length = 20, nullable = false)
 	private String status;
 	
 	@ManyToOne

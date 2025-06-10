@@ -29,7 +29,7 @@ public class NotaItemProduto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_item_produto")
 	private Long id;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, precision = 9, scale = 4)
 	private BigDecimal quantidade;
 	
 	@ManyToOne
