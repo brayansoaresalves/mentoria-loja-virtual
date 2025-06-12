@@ -1,1 +1,0 @@
-alter table usuarios_acessos drop constraint = "ukqs91qokws6i46m1vnsoakivh1";
